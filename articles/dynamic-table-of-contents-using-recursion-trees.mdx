@@ -1,0 +1,325 @@
+---
+title: 'Dynamic Table of Contents Using Recursion Trees'
+type: 'article'
+date: 'January 4th, 2022'
+dateMetadata: '01/04/2022'
+description: 'Understanding how to generate dynamic table of contents from a Markdown file using recursion trees in Javascript'
+author: 'Ryan Schachte'
+---
+
+# Background
+
+Table of contents are nice to have on a site full of complex information. However, writing an entire post then later formatting the HTML is time consuming. 
+In this post, I walk through an algorithm I designed to parse your blog posts dynamically and generate a table of contents for you at runtime or buildtime.
+
+We'll be discussing how to model the data, recurse through it and do dynamic HTML code generation.
+
+[Check out the Github repository here!](https://github.com/Schachte/Dynamic-Markdown-Parser)
+
+## Example
+
+![Example of dynamic table of content generation](https://user-images.githubusercontent.com/7055226/148092552-c3820ff5-5a5c-488a-8c65-4e2b05066870.png)
+
+
+## What is a Recursion tree?
+
+A recursion tree shows breaks in your algorithm where a recurrence is iterated upon. Thinking about a table of contents in terms of a recursion tree is helpful because having nested content can be easily modeled as a tree.
+
+![Reference: www.cs.cornell.edu](https://www.cs.cornell.edu/courses/cs3110/2012sp/lectures/lec20-master/images/lec19-diagram1.png)
+
+The above photo demonstrates how different branches of recursion can be visualized when describing a particular recurrence relation. This is a great exercise for breaking down and computing the time complexity of a particular algorithm.
+
+
+## Why model nested lists with trees?
+
+Trees in computer science grow from the top down. It's not uncommon to refer to a tree based on it's arity. For example, a tree with at most two neighbors is considered a binary tree, whereas a tree with at most 3 neighbors is a `3-ary` tree.
+When modeling nested data, this is a great data structure to leverage due to the structure nature of representing elements with parents, children, ancestors, etc. in the recursion tree.
+
+
+### Visualizing From Markdown To HTML
+
+![](/images/recursion-toc/viz2.png)
+
+As we analyze the above image, we really have a 2-step process we need to execute before we obtain our final result:
+
+- MD parsing - We need to parse the input to obtain the headings we care about. This can be completed with regex or similar pattern matching algorithms.
+
+The important thing to consider whilst parsing the input data is maintaining the context around _where_ you found it. That is, at what depth in the grouping does the element exist.
+For example, if you hit an `H3` tag, you would want to know that the depth level is `3`. We can leverage the numerical representation of our headings to tell us
+later how we decide to recurse within our recursion tree during the code generation.
+
+- Code generation - We need to take the parsed output from above and convert it into HTML. This process is where the tree generation and recursion takes place for generating the HTML code.
+
+When we consider _how_ the data should be represented, we really just need an easily traversible structure that can be leveraged during our recursion. Below shows two approaches I've employed to represent this.
+
+```js filename=SampleOutputGrouped.js showlinenumbers="true"
+
+/**
+ * Notice, this representation of our groups maintain the chunks of data. There could be useful reasons to employ this structure, but it 
+ * was too complex for this task. I maintain this as the primary output because I know modifying this output is easy
+ **/
+
+[
+  [
+    { depthCount: 1, type: '#', content: 'Dynamic-Markdown-Parser' },
+    { depthCount: 2, type: '##', content: 'Usage' },
+    { depthCount: 3, type: '###', content: 'Output' }
+  ],
+  [
+    { depthCount: 2, type: '##', content: 'Background' },
+    { depthCount: 2, type: '##', content: 'Sample Input Markdown' }
+  ],
+  [
+    { depthCount: 1, type: '#', content: 'This is a heading' },
+    { depthCount: 2, type: '##', content: 'This is a nested thing' }
+  ],
+  [
+    { depthCount: 1, type: '#', content: 'This would cause a reset' },
+    { depthCount: 3, type: '###', content: 'This is even deeper' }
+  ],
+  [
+    { depthCount: 2, type: '##', content: 'Would this cause a reset?' },
+    { depthCount: 2, type: '##', content: 'Sample Output' }
+  ]
+]
+```
+
+```js filename=SampleOutputFlatMapped.js showlinenumbers="true"
+
+/**
+ * This is a simple flat-map on the above data, we'll look at the code to achieve this later in the post. This is a simpler version of showing all our data
+ * in a single dimensional vector.
+ **/
+
+[
+  { depthCount: 1, type: '#', content: 'Dynamic-Markdown-Parser' },
+  { depthCount: 2, type: '##', content: 'Usage' },
+  { depthCount: 3, type: '###', content: 'Output' },
+  { depthCount: 2, type: '##', content: 'Background' },
+  { depthCount: 2, type: '##', content: 'Sample Input Markdown' },
+  { depthCount: 1, type: '#', content: 'This is a heading' },
+  { depthCount: 2, type: '##', content: 'This is a nested thing' },
+  { depthCount: 1, type: '#', content: 'This would cause a reset' },
+  { depthCount: 3, type: '###', content: 'This is even deeper' },
+  { depthCount: 2, type: '##', content: 'Would this cause a reset?' },
+  { depthCount: 2, type: '##', content: 'Sample Output' }
+]
+```
+
+# Algorithm Overview
+
+As mentioned above, we will break our algorithm down into two stages. Parsing the input Markdown as well as code generation for obtaining the HTML output.
+
+## Markdown File Parser
+
+The file parser is relatively straightforward. We have a simple goal which is to throw away the textual content that isn't a header and store context around the depth of our information.
+
+```js 
+const dynamicMdMatcher = /^(#{1,4})\s+(.*)$/;
+```
+
+This snippet above is `regex` responsible for parsing out up to an `H4`. We have 2 match groups in this regex, the number of `octothorpes` to represent depth and the text content.
+
+Now, if we leveraged the second format from above, we wouldn't even need any recursion for this piece, we can simple parse and store the level which the header represents. Let's take a look at how that code would look.
+
+```js filename=MarkdownHeaderParser.js showlinenumbers="true"
+
+const retrieveParsedData = (postContent) => {
+
+  // Iterate over all the lines in the file line by line.
+  const allLines = postContent
+    .split(/\r?\n/)
+    .map((line) => {
+      return line;
+    })
+    .filter((line) => line.length > 0);
+
+  // Apply regex to filter out lines we can discard
+  const matchedHeadings = allLines
+    .map((line) => {
+      let potentialMatch = dynamicMdMatcher.exec(line);
+
+      // Store the metadata around the line (depth, heading type, textual content)
+      if (potentialMatch !== null) {
+        return {
+          depthCount: potentialMatch[1].length,
+          type: potentialMatch[1],
+          content: potentialMatch[2],
+        };
+      }
+      return "";
+    })
+    .filter((line) => line !== "");
+
+  return matchedHeadings;
+};
+```
+
+If this format was sufficient, we would get the flat structure we saw above. If we wanted to up the complexity and segregate the groupings, then we can construct a recursive sub-routine.
+
+In order to do this, we need to take the flat structure from above and recurse over it like so:
+
+```js filename=recursiveMarkdownParser.js showlinenumbers="true"
+
+const mdRecursiveSubRoutine = (data, existingGroup = [], solution = []) => {
+
+   // base-case, allows us to terminate stackframe on the callstack when we've exhausted our data
+  if (data.length == 0) {
+
+    // Ensures that if any remaining data in our ephemeral group gets added into the final solution as the last group
+    if (existingGroup) {
+      return [...solution, existingGroup];
+    }
+    return solution;
+  }
+
+  // Parse the depth count from the current record
+  const depthCount = data[0]["depthCount"];
+
+  // If the current grouping in the recursion doesn't exist, simply add this record and move on to the next heading
+  if (existingGroup.length == 0) {
+    existingGroup = [data[0]];
+
+    // Removes the heading we just added into the ephemeral group from the original dataset
+    data.shift();
+
+    // Recurses to the next heading whilst still keeping track of elements within the current group
+    return mdRecursiveSubRoutine(data, existingGroup, solution);
+  }
+
+  // Tracks the reset, ensures that if a heading like an H1 comes after an H3, we start a new grouping
+  if (depthCount < existingGroup[existingGroup.length - 1]["depthCount"]) {
+    solution = [...solution, existingGroup];
+    const currentLevel = data[0];
+    data.shift();
+    return mdRecursiveSubRoutine(data, [currentLevel], solution);
+  }
+
+  // Simpler case where a heading has increased within the same group, we append it to the ephemeral group and recurse further
+  existingGroup = [...existingGroup, data[0]];
+  data.shift();
+  return mdRecursiveSubRoutine(data, existingGroup, solution);
+};
+```
+
+## Converting Headings into Recursion Tree
+
+Once we have a data structure we can manipulate programatically without issue, it's time to do the HTML code generation.
+Remember, the input data structure has the following format:
+
+```js
+const depthData = [
+  { depthCount: 1, type: "#", content: "This is a heading" },
+  { depthCount: 2, type: "##", content: "This is a nested thing" },
+  { depthCount: 2, type: "##", content: "This would cause a reset" },
+  { depthCount: 3, type: "###", content: "This is even deeper" },
+  { depthCount: 1, type: "#", content: "This is even deeper" },
+  { depthCount: 2, type: "##", content: "Would this cause a reset?" },
+];
+```
+
+The first thing we need to do is devise a helper function that initializes the algorithms execution
+
+### Driver Function
+
+```js filename=HTMLGeneration.js showlinenumbers="true"
+const generateNestedHtml = (depthData) => {
+  let closeCount = 0;
+  let generatedHtml = `<ul>
+  ${recursiveListGenerator(depthData, depthData[0].depthCount, "", closeCount)}
+  </ul>`;
+
+  return generatedHtml;
+};
+```
+
+If we look at this code and reference back to the visualization above, this is why the root node is initialized to the empty set (empty string). We start with nothing and append to it through each recursive call.
+The `close count` will become extremely useful when understanding when to close our tags as we encounter new elements.
+
+### Recursive Code Generation
+
+The below is the core algorithm for iteration and generating the code. While iterating over the structure we generated above, we effectively build an in-memory tree structure. During this traversal
+we can simply append HTML elements to our string, which will be rendered on the browser after completion.
+
+Let's walk through this code by reading the comments below:
+
+```js filename=HTMLGeneration.js showlinenumbers="true"
+const recursiveListGenerator = (
+  layer,
+  prevDepth,
+  generatedCode,
+  closeCount
+) => {
+
+  // This is the base-case. We need to terminate the algorithm when there are no more headings to recurse over
+  if (layer.length == 0) {
+
+    // Unconditional close tag to close out our final list
+    generatedCode += "</ul>";
+    return generatedCode;
+  }
+
+  // Each header has the context for what type it is (h1, h2, h3, etc)
+  const currentDepth = layer[0].depthCount;
+
+  // If there is no change in the depth from the previous element, we simply append another <li> because they exist at the same layer!
+  if (layer[0].depthCount == prevDepth) {
+    generatedCode += `<li>${layer[0].content}</li>`;
+
+    // Remove the element so we don't infinite loop and cause a stack overflow!
+    layer.shift();
+
+    // Recurse (new invocation on callstack pulls the next header in the list and uses current depth as the previous depth in next invocation)
+    return recursiveListGenerator(
+      layer,
+      currentDepth,
+      generatedCode,
+      closeCount
+    );
+  }
+
+  // Similar logic to our MD parser where we see if anything has changed in the grouping. If a grouping has changed, we either reset or go deeper
+  if (layer[0].depthCount > prevDepth) {
+    // Tells us how much deeper we need to recurse down the tree
+    // IE. if current depth is 2 (## hello) and next is 3 (### hello), the delta is 1 recursive invocation
+    const calculatedRecursionDepth = layer[0].depthCount - prevDepth;
+
+    // Now you can't just simply append a nested <li> because the depth may not just be one higher. What we do is we track the delta between the last heading
+    // and the current one to understand how many nested <ul>'s we need.
+    let tempCloseCount = 0;
+    for (let i = 0; i < calculatedRecursionDepth; i++) {
+      // Helps us track when to close our unordered lists later, irrespective of the current stackframe we're executing against.
+      generatedCode += "<ul>";
+      tempCloseCount++;
+    }
+
+    generatedCode += `<li>${layer[0].content}</li>`;
+    layer.shift();
+
+    return recursiveListGenerator(
+      layer,
+      currentDepth,
+      generatedCode,
+      tempCloseCount
+    );
+  } else {
+    // This would be executed when the grouping has been reset, in which case we need to close out N unclosed <ul> tags to ensure our list is accurate.
+    while (closeCount--) generatedCode += "</ul>";
+    generatedCode += `<li>${layer[0].content}</li>`;
+    layer.shift();
+
+    return recursiveListGenerator(
+      layer,
+      currentDepth,
+      generatedCode,
+      closeCount
+    );
+  }
+};
+```
+
+Once this executes, you'll get yourself some nicely auto-generated HTML to render on your site for your table of contents!
+
+If you leverage a static site generation tool like Next.JS or Gatsby, you can simply have a hook on the server or during build time to parse the file contents and generate this on the fly.
+
+This page currently leverages this exact code to dynamically render the table of contents.

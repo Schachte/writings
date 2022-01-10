@@ -1,0 +1,193 @@
+.marker {
+  font-family: "Permanent Marker", cursive;
+  font-weight: 100;
+}
+
+.hero {
+  width: 85%;
+  color: var(--main-text-color);
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 3rem;
+
+  &__links {
+    padding: 0.5rem;
+    line-height: 2rem;
+  }
+
+  &__link {
+    padding: 0.2rem;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+    border-radius: 6px;
+    margin-right: 2px;
+    margin-left: 2px;
+    font-weight: 400;
+    word-break: keep-all;
+    white-space: nowrap;
+    transition: font-size 100ms ease-in-out;
+    color: $main-text-color-light;
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(1.15);
+    }
+
+    &orange {
+      background-color: #ffab48;
+    }
+
+    &red {
+      background-color: #ff7367;
+    }
+
+    &blue {
+      background-color: #48b9ff;
+    }
+
+    &tan {
+      background-color: #e0ccb6;
+    }
+
+    &yellow {
+      background-color: #ffe267;
+    }
+  }
+
+  &__image {
+    height: auto;
+    max-width: 100%;
+    margin-top: -5rem;
+    object-fit: scale-down;
+    transform: rotate(-15deg);
+    margin-right: 1rem;
+    animation: spin 0.5s ease;
+    background-color: transparent;
+    z-index: 1;
+  }
+
+  @keyframes spin {
+    0% {
+      animation-timing-function: ease-out;
+      transform: rotate(-35deg);
+    }
+    25% {
+      transform: rotate(35deg);
+    }
+    50% {
+      transform: rotate(-35deg);
+    }
+    75% {
+      transform: rotate(35deg);
+    }
+    100% {
+      animation-timing-function: ease-in;
+      transform: rotate(-15deg);
+    }
+  }
+
+  &__welcome-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    font-weight: bold;
+    max-width: 100%;
+  }
+
+  &__name {
+    font-size: 2rem;
+  }
+
+  &__summary {
+    line-height: 2rem;
+    font-size: 1rem;
+    font-weight: 100;
+  }
+
+  &__newsletter {
+    display: flex;
+    flex-direction: row;
+
+    &_input {
+      border: 2px solid var(--border-color);
+      border-radius: 5px;
+      padding: 0.75rem;
+      padding-top: 0.4rem;
+      padding-bottom: 0.4rem;
+      flex-grow: 4;
+      font-weight: bold;
+      font-size: 1.2rem;
+      transition: 200ms ease-in-out;
+      box-shadow: 0 0 0 rgb(255, 255, 255);
+
+      &::placeholder {
+        color: rgb(189, 189, 189);
+      }
+
+      &:focus {
+        color: rgb(93, 93, 93);
+        font-size: 25px;
+      }
+
+      &:hover {
+        background-color: var(--border-color);
+        border: 2px solid limegreen;
+      }
+
+      &button {
+        padding: 0.75rem;
+        padding-top: 0.4rem;
+        padding-bottom: 0.4rem;
+        margin-left: 0.3rem;
+        border: 2px solid var(---color);
+        border-radius: 5px;
+        background-color: #ffe267;
+        font-size: 1.2rem;
+        font-weight: bold;
+        flex-grow: 1;
+        transition: 0.1s ease-in-out;
+
+        &:hover {
+          cursor: pointer;
+          background-color: var(--border-color);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .hero {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    &__image {
+     opacity: 0;
+      visibility: hidden;
+      position: absolute;
+      width: 0px;
+      height: 0px;
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .hero {
+    &__newsletter {
+      &_input {
+        font-size: 0.8rem;
+
+        &:focus {
+            color: rgb(93, 93, 93);
+            font-size: .8rem;
+          }
+
+        &button {
+            font-size: .8rem;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+.posts-container {
+  display: flex;
+  justify-content: flex-start;
+  width: 65%;
+  margin: 0 auto;
+  flex-direction: column;
+  color: var(--main-text-color);
+  max-width: 850px;
+}
+
+.month {
+  margin-top: 50px;
+  &_heading {
+    font-size: 2rem;
+    font-weight: 800;
+  }
+
+  &_posts {
+    margin-top: 15px;
+    padding-left: 30px;
+  }
+
+  &_posts li {
+    list-style: none;
+    line-height: 2rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 5px;
+    transition: padding-left 100ms ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--post-hover-color);
+      padding-left: 45px;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .month {
+    margin-top: 45px;
+    &_posts {
+      li {
+        padding-left: 5px;
+        padding-right: 5px;
+
+        &:hover {
+          padding-left: 5px;
+        }
+      }
+    }
+  }
+
+  .posts-container {
+    width: 100%;
+    padding: 1rem;
+    padding-left: 50px;
+    .month {
+      &_posts {
+        padding-left: 0px;
+        padding-right: 0px;
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+[data-theme="light"] {
+    --border-color: #{$border-color-light};
+    --link-highlight-color: #{$link-highlight-color-light};
+    --main-text-color: #{$main-text-color-light};
+    --background-color: #{$background-color-light};
+    --post-hover-color: #{$post-hover-color-light};
+    --box-shadow: #{$box-shadow-light};
+}
+
+[data-theme="dark"] {
+    --border-color: #{$border-color-dark};
+    --link-highlight-color: #{$link-highlight-color-dark};
+    --main-text-color: #{$main-text-color-dark};
+    --background-color: #{$background-color-dark};
+    --post-hover-color: #{$post-hover-color-dark};
+    --box-shadow: #{$box-shadow-dark};
+}

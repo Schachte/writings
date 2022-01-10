@@ -1,0 +1,28 @@
+.header__container {
+  padding-left: 20px;
+  word-wrap: normal;
+  max-width: 200px;
+  text-align: right;
+  color: $main-link-orange;
+}
+
+.image-container {
+  width: 100%;
+  height: 50vh;
+  position: relative;
+
+  .image {
+      width: 100%;
+      position: relative !important;
+      object-fit: contain; // Optional
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .header__container {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 100%;
+    text-align: left;
+  }
+}
