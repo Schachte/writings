@@ -39,7 +39,7 @@
   }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
   .month {
     margin-top: 45px;
     &_posts {
@@ -48,7 +48,7 @@
         padding-right: 5px;
 
         &:hover {
-          padding-left: 5px;
+          padding-left: 15px;
         }
       }
     }
@@ -57,7 +57,8 @@
   .posts-container {
     width: 100%;
     padding: 1rem;
-    padding-left: 50px;
+    padding-left: 15px;
+    padding-right: 0px;
     .month {
       &_posts {
         padding-left: 0px;
