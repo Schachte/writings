@@ -16,10 +16,13 @@ const genId = (props) => {
 };
 
 const MDXComponents = {
-  h1: (props) => <h1 id={genId(props)} className={styles["header__container"]} {...props} />,
+  h1: (props) => (
+    <h1 id={genId(props)} className={styles["header__container"]} {...props} />
+  ),
   h2: (props) => <h2 id={genId(props)} {...props} />,
   h3: (props) => <h3 id={genId(props)} {...props} />,
   h4: (props) => <h4 id={genId(props)} {...props} />,
+  a: (props) => <a {...props} style={{ color: "pink" }} />,
   img: (props) => (
     <div className={styles["image-container"]}>
       <Link href={props.src}>
@@ -35,7 +38,9 @@ const MDXComponents = {
       </Link>
     </div>
   ),
-  li: (props) => <li {...props} style={{padding: "1rem", lineHeight: "2rem"}}/>
+  li: (props) => (
+    <li {...props} style={{ padding: "1rem", lineHeight: "2rem" }} />
+  ),
 };
 
 export default MDXComponents;
