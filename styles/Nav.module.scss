@@ -27,7 +27,7 @@
 
   &:hover {
     cursor: pointer;
-    border: 2px solid orange;
+    opacity: 0.5;
   }
 
   &__moon {
@@ -40,12 +40,12 @@
   font-family: "Arimo", sans-serif;
   display: flex;
   justify-content: center;
-  position: sticky;
+  // position: sticky;
+  position: relative;
   top: 0;
   z-index: 10;
   align-items: center;
-  // border-bottom: 1px solid var(--border-color) .8;
-  box-shadow: 0 0 45px var(--box-shadow);
+  box-shadow: 0px 0px 60px var(--box-shadow);
 
   &__list {
     display: flex;
@@ -67,6 +67,14 @@
         background-color: transparent;
         padding: 1rem;
         position: absolute;
+        transform: rotate(-15deg);
+        transition: opacity 200ms ease-in-out;
+        transition: transform 200ms ease-in-out;
+
+        &:hover {
+          opacity: 0.2;
+          transform: rotate(25deg);
+        }
       }
 
       &_txt {
@@ -75,23 +83,10 @@
         position: relative;
         position: absolute;
         left: 7rem;
+        transition: opacity 200ms ease-in-out;
 
-
-        &::after {
-          content: "";
-          width: 0;
-          height: 0.2rem;
-          position: absolute;
-          top: 81px;
-          left: -0.3rem;
-          bottom: 0.8rem;
-          background-color: $main-link-orange;
-          transition: width 400ms ease-in-out;
-        }
-
-        &:hover::after,
-        &:focus::after {
-          width: 100%;
+        &:hover {
+          opacity: 0.2;
         }
       }
     }
@@ -111,6 +106,7 @@
       padding: 1.5rem 1rem;
       cursor: pointer;
       align-items: flex-end;
+      background-color: transparent;
 
       &::after {
         content: "";
@@ -121,12 +117,12 @@
         left: 1rem;
         bottom: 0.8rem;
         background-color: $main-link-orange;
-        transition: width 200ms ease-in-out;
+        transition: width 100ms ease-in-out;
       }
 
       &:hover::after,
       &:focus::after {
-        width: 80%;
+        width: 50%;
       }
 
       &:hover &drop,
@@ -195,7 +191,7 @@
   }
 }
 
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 850px) {
   .nav {
     &__list {
       &logo {
@@ -209,19 +205,19 @@
         &_txt {
           visibility: hidden;
           position: absolute;
-          font: 0rem;
         }
       }
     }
   }
 }
 
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 850px) {
   .toggle_theme {
     right: 0;
     top: 0;
     width: 100%;
     border-radius: 0;
+    opacity: 1;
   }
 
   .nav {
@@ -229,6 +225,19 @@
       margin-top: 60px;
       justify-content: center;
       align-items: center;
+    }
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .nav {
+    &__list {
+      &logo {
+        &_img {
+          position: absolute;
+          opacity: .3;
+        }
+      }
     }
   }
 }

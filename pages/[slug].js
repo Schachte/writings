@@ -1,13 +1,30 @@
 import Navigation from "../components/Navigation";
-import Post from '../components/Post'
+import Post from "../components/Post";
 import Footer from "@/components/Footer";
+import { bundleMDX } from "mdx-bundler";
 
-import matter from "gray-matter";
-import { serialize } from "next-mdx-remote/serialize";
 import generateToc from "utils/TOCGenerator";
+import { remarkMdxImages } from "remark-mdx-images";
+import imageSize from "rehype-img-size";
+import rehypePrism from 'rehype-prism-plus';
+import { visit } from 'unist-util-visit'
 
 import fs from "fs";
 import path from "path";
+
+// const fixMetaPlugin = (options = {}) => {
+//   return (tree) => {
+//     visit(tree, 'element', visitor);
+//   };
+
+//   function visitor(node, index, parent) {
+//     if (!parent || parent.tagName !== 'pre' || node.tagName !== 'code') {
+//       return;
+//     }
+
+//     node.data = { ...node.data, meta: node.properties.metastring };
+//   }
+// };
 
 const generateSlugFromFile = (file) =>
   [file]
@@ -28,31 +45,44 @@ export async function getStaticPaths() {
   const paths = fileNames.map(generateSlugFromFile).map((filename) => {
     return {
       params: {
-        slug: filename["modified"].replace(".mdx", "")
+        slug: filename["modified"].replace(".mdx", ""),
       },
     };
   });
-  
-  return {paths, fallback: true}
+
+  return { paths, fallback: true };
 }
 
 export async function getStaticProps({ params }) {
   const fullPath = path.join("articles", `${params.slug}.mdx`);
   const parsedData = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(parsedData);
-  const mdxSource = await serialize(content, {
-    scope: data,
-    mdxOptions: {
-      rehypePlugins: [
-        // [imageSize, { dir: "public" }],
-        // fixMetaPlugin,
-        // rehypePrism,
-      ],
+  const { code, frontmatter } = await bundleMDX({
+    source: parsedData,
+    xdmOptions: (options) => {
+      options.remarkPlugins = [
+        ...(options.remarkPlugins ?? [[imageSize, { dir: "public" }], ]),
+        remarkMdxImages,
+      ];
+
+      options.rehypePlugins = [
+        ...(options.rehypePlugins ?? []),
+        rehypePrism
+      ];
+
+      return options;
+    },
+    esbuildOptions: (options) => {
+      options.loader = {
+        ...options.loader,
+        ".png": "dataurl",
+      };
+
+      return options;
     },
   });
 
   return {
-    props: { source: mdxSource, frontMatter: data, toc: generateToc(content) },
+    props: { source: code, frontMatter: frontmatter, toc: generateToc(parsedData) },
   };
 }
 
@@ -62,7 +92,10 @@ export default function PostPage({ source, frontMatter, toc }) {
       <div className="content-wrapper">
         <Navigation showLogo={true} />
         <Post content={source} metadata={frontMatter} toc={toc} />
-        <Footer>Site Built &amp; Maintained By: Ryan Schachte // Logo Design By: Alyssa Sopanarat</Footer>
+        <Footer>
+          Site Built &amp; Maintained By: Ryan Schachte // Logo Design By:
+          Alyssa Sopanarat
+        </Footer>
       </div>
     </div>
   );

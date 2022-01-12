@@ -1,5 +1,3 @@
-import Head from "next/head";
-import Image from "next/image";
 import Navigation from "../components/Navigation";
 import Hero from "../components/Hero";
 import AllPosts from "@/components/AllPosts";

@@ -1,9 +1,15 @@
 import styles from '../styles/Post.module.scss';
 import { MDXRemote } from "next-mdx-remote";
+// import { bundleMDX } from "mdx-bundler";
+import {getMDXComponent} from 'mdx-bundler/client'
+import React from "react"
+
+
 import MDXComponents from '@/mdx/MDXComponents';
 
 export default function Post({ content, metadata, toc }) {
-    console.log(metadata)
+
+    const Component = React.useMemo(() => getMDXComponent(content), [content])
     return (
         <div className={styles["post__wrapper"]}>
             <div className={styles["post__wrappertitle"]}>
@@ -24,7 +30,7 @@ export default function Post({ content, metadata, toc }) {
                 </div>
             </div>
             <div className={styles["post__wrappercontent"]}>
-                <MDXRemote {...content} components={MDXComponents} />
+                <Component components={MDXComponents}/>
             </div>
         </div>
     )

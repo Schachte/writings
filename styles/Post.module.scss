@@ -1,4 +1,5 @@
 .post__wrapper {
+  font-family: "Arimo";
   width: 55%;
   margin: 0 auto;
   max-width: 1000px;
@@ -8,6 +9,8 @@
   margin-top: 40px;
   color: var(--main-text-color);
   padding-bottom: 5rem;
+
+
 
   &title {
     display: flex;
@@ -80,6 +83,7 @@
 
       & li {
         padding: 5px;
+        transition: color 50ms ease-in-out;
 
         &:hover {
           cursor: pointer;
@@ -93,6 +97,7 @@
     margin-top: 50px;
     width: 100%;
     position: relative;
+
   }
 
   &content h2,h3,h4 {
@@ -105,12 +110,12 @@
     left: -250px;
     padding-left: 20px;
     opacity: .9;
-    color: var($main-link-orange);
+    color: var(--main-text-color);
   }
 
   &content p {
-    line-height: 2rem;
-    font-size: 1.1rem;
+    line-height: 2.5rem !important;
+    font-size: 1.2rem;
   }
 }
 

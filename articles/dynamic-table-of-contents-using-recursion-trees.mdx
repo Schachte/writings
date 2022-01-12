@@ -18,7 +18,7 @@ We'll be discussing how to model the data, recurse through it and do dynamic HTM
 
 ## Example
 
-![Example of dynamic table of content generation](https://user-images.githubusercontent.com/7055226/148092552-c3820ff5-5a5c-488a-8c65-4e2b05066870.png)
+![Example of dynamic table of content generation](/images/example.png)
 
 
 ## What is a Recursion tree?
@@ -38,7 +38,7 @@ When modeling nested data, this is a great data structure to leverage due to the
 
 ### Visualizing From Markdown To HTML
 
-![](/images/recursion-toc/viz2.png)
+![](/images/viz.png)
 
 As we analyze the above image, we really have a 2-step process we need to execute before we obtain our final result:
 
@@ -159,7 +159,7 @@ If this format was sufficient, we would get the flat structure we saw above. If 
 
 In order to do this, we need to take the flat structure from above and recurse over it like so:
 
-```js filename=recursiveMarkdownParser.js showlinenumbers="true"
+```js showLineNumbers
 
 const mdRecursiveSubRoutine = (data, existingGroup = [], solution = []) => {
 
@@ -207,7 +207,7 @@ const mdRecursiveSubRoutine = (data, existingGroup = [], solution = []) => {
 Once we have a data structure we can manipulate programatically without issue, it's time to do the HTML code generation.
 Remember, the input data structure has the following format:
 
-```js
+```js showLineNumbers
 const depthData = [
   { depthCount: 1, type: "#", content: "This is a heading" },
   { depthCount: 2, type: "##", content: "This is a nested thing" },
@@ -222,7 +222,7 @@ The first thing we need to do is devise a helper function that initializes the a
 
 ### Driver Function
 
-```js filename=HTMLGeneration.js showlinenumbers="true"
+```js showLineNumbers
 const generateNestedHtml = (depthData) => {
   let closeCount = 0;
   let generatedHtml = `<ul>

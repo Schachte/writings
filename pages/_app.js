@@ -3,6 +3,9 @@ import { AuthProvider } from '@/context/AuthContext'
 import '../styles/globals.scss'
 import '../styles/theme.scss'
 
+import '../styles/prism.scss'
+import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
+
 function MyApp({ Component, pageProps }) {
 
   const determineUserPreference = () => {
