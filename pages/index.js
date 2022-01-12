@@ -36,7 +36,7 @@ export default function HomePage({ postFrontMatter }) {
   return (
     <>
       <Head>
-        <title>Schachte's Playground</title>
+        <title>Schachte&apos;'s Playground</title>
         <meta charset="utf-8"/>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="author" content="Ryan Schachte" />
