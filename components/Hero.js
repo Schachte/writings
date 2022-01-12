@@ -19,7 +19,7 @@ export default function Hero() {
                     <span onClick={() => alert("Welcome to my blog!")} className={`${styles["hero__link"]} ${styles["hero__linktan"]}`}>occasional blogger</span>.</span>
                 <span className={styles["hero__summary"]}>This is my digital oasis, where I like to share things I&apos;ve <span className={`${styles["hero__link"]} ${styles["hero__linkyellow"]}`}><Link href="https://www.github.com/schachte"><a target="_blank">learned or developed</a></Link></span> with the broader internet community.</span>
                 <div className={styles["hero__newsletter"]}>
-                    <input disabled className={styles["hero__newsletter_input"]} type="text" placeholder="Sign up for my occasional newsletter" />
+                    <input className={styles["hero__newsletter_input"]} type="text" placeholder="Sign up for my occasional newsletter" />
                     <button onClick={() => alert("Not yet enabled")} className={styles["hero__newsletter_inputbutton"]} type="submit">Subscribe</button>
                 </div>
             </div>

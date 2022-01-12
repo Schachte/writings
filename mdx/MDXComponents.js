@@ -39,7 +39,7 @@ const MDXComponents = {
     </div>
   ),
   li: (props) => (
-    <li {...props} style={{ padding: "1rem", marginLeft: "1.5rem", lineHeight: "2rem" }} />
+    <li {...props} style={{ marginLeft: "1.5rem", lineHeight: "2.0rem" }} />
   ),
 };
 

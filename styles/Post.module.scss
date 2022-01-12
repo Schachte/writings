@@ -79,7 +79,7 @@
 
     &_content ul {
       padding-left: 20px;
-      list-style: none;
+      list-style: lower-roman;
 
       & li {
         padding: 5px;
@@ -88,6 +88,7 @@
         &:hover {
           cursor: pointer;
           color: #ffab48;
+          padding-left: 10px;
         }
       }
     }
