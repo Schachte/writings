@@ -11,7 +11,7 @@ export default function Hero() {
                 height={"auto"}
             />
             <div className={styles["hero__welcome-text"]}>
-                <span className={styles["hero__name"]}>👋 I&apos;m <span className={styles["marker"]}>Ryan Schachte</span></span>
+                <span className={styles["hero__name"]}>👋 I&apos;m <span className={styles["marker"]}><Link href="/posts/welcome-to-my-blog">Ryan Schachte</Link></span></span>
                 <span className={styles["hero__links"]}>A 
                     <span className={`${styles["hero__link"]} ${styles["hero__linkorange"]}`}><Link href="https://www.strava.com/athletes/3934827"><a target="_blank">runner</a></Link></span>, 
                     <span className={`${styles["hero__link"]} ${styles["hero__linkred"]}`}><Link href="https://www.youtube.com/TheSimpleEngineer"><a target="_blank">educator</a></Link></span>, 

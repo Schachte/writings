@@ -1,6 +1,29 @@
 .marker {
-  // font-family: "Permanent Marker", cursive;
   font-weight: 900;
+  position: relative;
+
+  &::after {
+    content: "";
+    width: 0;
+    height: 0.3rem;
+    border-radius: $radius;
+    position: absolute;
+    left: 0rem;
+    bottom: 0.8rem;
+    background-color: var(--border-color);
+    transition: width 100ms ease-in-out;
+    top: 2.5rem;
+  }
+
+  &:hover::after,
+  &:focus::after {
+    width: 100%;
+  }
+
+  &:hover {
+    color: var(--border-color);
+    cursor: pointer;
+  }
 }
 
 .hero {
