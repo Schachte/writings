@@ -1,6 +1,4 @@
 import styles from '../styles/Post.module.scss';
-import { MDXRemote } from "next-mdx-remote";
-// import { bundleMDX } from "mdx-bundler";
 import {getMDXComponent} from 'mdx-bundler/client'
 import React from "react"
 

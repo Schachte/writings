@@ -66,6 +66,7 @@ export async function getStaticProps({ params }) {
 
       options.rehypePlugins = [
         ...(options.rehypePlugins ?? []),
+        // fixMetaPlugin,
         rehypePrism
       ];
 
@@ -86,7 +87,10 @@ export async function getStaticProps({ params }) {
   };
 }
 
-export default function PostPage({ source, frontMatter, toc }) {
+export default function PostPage({ source="", frontMatter="", toc="" }) {
+  if (source == "" || frontMatter == "" || toc == "") {
+    return <div></div>
+  }
   return (
     <div className="wrapper">
       <div className="content-wrapper">
