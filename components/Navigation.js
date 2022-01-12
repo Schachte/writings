@@ -63,31 +63,30 @@ export default function Navigation({ showLogo = false }) {
             <ul className={styles["nav__listitemdrop"]}>
               <li>
                 <Link href="https://github.com/schachte">
-                  <a>Github</a>
+                  <a target="_blank">Github</a>
                 </Link>
               </li>
               <li>
                 <Link href="https://twitter.com/thesimpengineer">
-                  <a>Twitter</a>
+                  <a target="_blank">Twitter</a>
                 </Link>
               </li>
               <li>
                 <Link href="https://youtube.com/thesimpleengineer">
-                  <a>Youtube</a>
+                  <a target="_blank">Youtube</a>
                 </Link>
               </li>
               <li>
                 <Link href="https://linkedin.com/in/schachte">
-                  <a>LinkedIn</a>
+                  <a target="_blank">LinkedIn</a>
                 </Link>
               </li>
             </ul>
           </li>
-          <li
-            onClick={() => alert("Email me: email @ ryan - schachte dot com")}
-            className={styles["nav__listitem"]}
-          >
-            Resume
+          <li className={styles["nav__listitem"]}>
+            <Link href="/files/resume.pdf">
+              <a target="_blank">Resume</a>
+            </Link>
           </li>
           <li
             onClick={() => alert("Email me: email @ ryan - schachte dot com")}

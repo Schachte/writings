@@ -6,8 +6,20 @@ const myLoader = ({ src, width, quality }) => {
   return src;
 };
 
+const genId = (props) => {
+  try {
+    if (props.children === undefined || props.children === "") return "";
+    return props.children.trim();
+  } catch (e) {
+    return props.children;
+  }
+};
+
 const MDXComponents = {
-  h1: (props) => <h1 className={styles["header__container"]} {...props} />,
+  h1: (props) => <h1 id={genId(props)} className={styles["header__container"]} {...props} />,
+  h2: (props) => <h2 id={genId(props)} {...props} />,
+  h3: (props) => <h3 id={genId(props)} {...props} />,
+  h4: (props) => <h4 id={genId(props)} {...props} />,
   img: (props) => (
     <div className={styles["image-container"]}>
       <Link href={props.src}>

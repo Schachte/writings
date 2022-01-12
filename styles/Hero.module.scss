@@ -12,6 +12,10 @@
   margin: 0 auto;
   margin-top: 3rem;
 
+  a {
+    all: unset;
+  }
+
   &__links {
     padding: 0.5rem;
     line-height: 2rem;
@@ -165,7 +169,7 @@
     text-align: center;
 
     &__image {
-     opacity: 0;
+      opacity: 0;
       visibility: hidden;
       position: absolute;
       width: 0px;
@@ -181,12 +185,12 @@
         font-size: 0.8rem;
 
         &:focus {
-            color: rgb(93, 93, 93);
-            font-size: .8rem;
-          }
+          color: rgb(93, 93, 93);
+          font-size: 0.8rem;
+        }
 
         &button {
-            font-size: .8rem;
+          font-size: 0.8rem;
         }
       }
     }

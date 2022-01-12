@@ -1,5 +1,5 @@
-import Navigation from "../components/Navigation";
-import Post from "../components/Post";
+import Navigation from "@/components/Navigation";
+import Post from "@/components/Post";
 import Footer from "@/components/Footer";
 import { bundleMDX } from "mdx-bundler";
 
@@ -11,20 +11,6 @@ import { visit } from 'unist-util-visit'
 
 import fs from "fs";
 import path from "path";
-
-// const fixMetaPlugin = (options = {}) => {
-//   return (tree) => {
-//     visit(tree, 'element', visitor);
-//   };
-
-//   function visitor(node, index, parent) {
-//     if (!parent || parent.tagName !== 'pre' || node.tagName !== 'code') {
-//       return;
-//     }
-
-//     node.data = { ...node.data, meta: node.properties.metastring };
-//   }
-// };
 
 const generateSlugFromFile = (file) =>
   [file]
@@ -66,7 +52,6 @@ export async function getStaticProps({ params }) {
 
       options.rehypePlugins = [
         ...(options.rehypePlugins ?? []),
-        // fixMetaPlugin,
         rehypePrism
       ];
 
