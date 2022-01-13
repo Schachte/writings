@@ -81,7 +81,7 @@
 
       &_txt {
         // font-family: "Permanent Marker";
-        font-weight: 900;
+        font-weight: 900;;
         font-size: 2rem;
         position: relative;
         position: absolute;
@@ -139,7 +139,7 @@
         top: 4rem;
         left: -1rem;
         background-color: var(--background-color);
-        border-radius: 20px;
+        border-radius: 0px;
         width: 12rem;
         padding: 1rem;
         display: flex;
@@ -148,9 +148,9 @@
         opacity: 0;
         visibility: hidden;
         transition: opacity 200ms ease-in-out;
-        border-bottom: 1px solid var(--border-color);
-        border-left: 1px solid var(--border-color);
-        border-right: 1px solid var(--border-color);
+        border: 1px solid var(--border-color);
+        // border-left: 1px solid var(--border-color);
+        // border-right: 1px solid var(--border-color);
 
         li {
           list-style: none;
