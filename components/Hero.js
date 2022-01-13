@@ -1,7 +1,8 @@
 import styles from '../styles/Hero.module.scss';
 import Link from "next/link";
+import AllPosts from "@/components/AllPosts";
 
-export default function Hero() {
+export default function Hero({postMetadata}) {
     return (
         <div className={styles["hero"]}>
             <img
@@ -22,6 +23,8 @@ export default function Hero() {
                     <input className={styles["hero__newsletter_input"]} type="text" placeholder="Sign up for my occasional newsletter" />
                     <button onClick={() => alert("Not yet enabled")} className={styles["hero__newsletter_inputbutton"]} type="submit">Subscribe</button>
                 </div>
+
+            <AllPosts postMetadata={postMetadata} />
             </div>
         </div>
     )
