@@ -41,6 +41,16 @@ const MDXComponents = {
   li: (props) => (
     <li {...props} style={{ marginLeft: "1.5rem", lineHeight: "2.0rem" }} />
   ),
+  pre: (props) => (
+    <div className={styles["custom__code"]}>
+      <pre {...props} />
+    </div>
+  ),
+  code: (props) => (
+    <div className={styles["custom__code"]}>
+      <code {...props} />
+    </div>
+  ),
 };
 
 export default MDXComponents;
