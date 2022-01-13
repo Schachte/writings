@@ -239,14 +239,3 @@ pre {
   color: rgb(156, 163, 175); /* Line number color */
   content: attr(line);
 }
-
-@media only screen and (max-width: 550px) {
-  code[class*="language-"],
-  pre[class*="language-"] {
-    font-size: 10px;
-  }
-
-  pre > code[class*="language-"] {
-    font-size: 10px;
-  }
-}
