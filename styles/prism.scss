@@ -45,6 +45,12 @@ pre[class*="language-"] {
   padding: 1em;
   margin: 0.5em 0;
   overflow: auto;
+
+  span {
+	&:hover {
+		background-color: rgba(221, 223, 226, 0.267);
+	}
+  }
 }
 
 :not(pre) > code[class*="language-"],
