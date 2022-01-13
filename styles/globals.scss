@@ -20,6 +20,13 @@ $radius: 0.2rem;
   outline: none;
 }
 
+::selection {
+  background: $main-link-orange; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: $main-link-orange; /* Gecko Browsers */
+}
+
 *,
 *::before,
 *::after {

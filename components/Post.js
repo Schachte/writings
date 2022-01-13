@@ -1,6 +1,8 @@
 import styles from "../styles/Post.module.scss";
 import { getMDXComponent } from "mdx-bundler/client";
 import React, { useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 import MDXComponents from "@/mdx/MDXComponents";
 
@@ -48,7 +50,19 @@ export default function Post({ content, metadata, toc }) {
         </span>
       </div>
       <div className={styles["post__wrapperauthor"]}>
-        <div className={styles["post__wrapperauthor_name"]}></div>
+        <div className={styles["post__wrapperauthor_name"]}>
+          <Link href="/posts/welcome-to-my-blog">
+            <Image
+              placeholder="blur"
+              blurDataURL="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+              src="/images/head.jpg"
+              height="100px"
+              width="100px"
+              object="contain"
+              layout="fill"
+            />
+          </Link>
+        </div>
         <div className={styles["post__wrapperauthor_description"]}>
           <span className={styles["post__wrapperauthor_description_preamble"]}>
             Written By
