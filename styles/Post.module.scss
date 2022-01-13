@@ -1,3 +1,25 @@
+#scrollToTop {
+  margin: 0;
+  position: fixed;
+  right: 25px;
+  bottom: 15px;
+  font-size: 19px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  font-size: 35px;
+  z-index: 99;
+
+  &:hover {
+    animation: shake 0.5s;
+    animation-iteration-count: 1;
+    cursor: pointer;
+    opacity: 0.7;
+  }
+}
+
 .post__wrapper {
   font-family: "Arimo";
   width: 55%;
@@ -60,7 +82,7 @@
       }
 
       &:hover {
-        opacity: .6;
+        opacity: 0.6;
         cursor: pointer;
         margin-right: 10px;
       }

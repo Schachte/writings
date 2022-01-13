@@ -22,6 +22,10 @@ function scrollToTargetAdjusted(element) {
   }
 }
 
+const topScroll = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
 export default function Post({ content, metadata, toc }) {
   useEffect(() => {
     if (typeof window !== undefined) {
@@ -52,6 +56,9 @@ export default function Post({ content, metadata, toc }) {
           content={metadata.description}
         />
       </Head>
+      <div onClick={topScroll} id={styles["scrollToTop"]} title="Go to top">
+        ⬆️
+      </div>
       <div className={styles["post__wrapper"]}>
         <div className={styles["post__wrappertitle"]}>
           <span className={styles["post__wrappertitle_header"]}>
