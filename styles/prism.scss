@@ -1,59 +1,43 @@
-/*
-Name: Duotone Dark
-Author: Simurai, adapted from DuoTone themes for Atom (http://simurai.com/projects/2016/01/01/duotone-themes)
-
-Conversion: Bram de Haan (http://atelierbram.github.io/Base2Tone-prism/output/prism/prism-base2tone-evening-dark.css)
-Generated with Base16 Builder (https://github.com/base16-builder/base16-builder)
-*/
-
+/**
+ * Coldark Theme for Prism.js
+ * Theme variation: Dark
+ * Tested with HTML, CSS, JS, JSON, PHP, YAML, Bash script
+ * @author Armand Philippot <contact@armandphilippot.com>
+ * @homepage https://github.com/ArmandPhilippot/coldark-prism
+ * @license MIT
+ */
 code[class*="language-"],
 pre[class*="language-"] {
-  font-family: Consolas, Menlo, Monaco, "Andale Mono WT", "Andale Mono",
-    "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono",
-    "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L",
-    "Courier New", Courier, monospace;
-  font-size: 14px;
-  line-height: 1.375;
-  direction: ltr;
+  color: #e3eaf2;
+  background: none;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
   word-break: normal;
-
+  word-wrap: normal;
+  line-height: 1.5;
   -moz-tab-size: 4;
   -o-tab-size: 4;
   tab-size: 4;
-
   -webkit-hyphens: none;
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  background: #2a2734;
-  color: #9a86fd;
-}
-
-pre {
-  margin-top: 20px !important;
-}
-
-pre > code[class*="language-"] {
-  font-size: 1em;
 }
 
 pre[class*="language-"]::-moz-selection,
 pre[class*="language-"] ::-moz-selection,
 code[class*="language-"]::-moz-selection,
 code[class*="language-"] ::-moz-selection {
-  text-shadow: none;
-  background: #6a51e6;
+  background: #3c526d;
 }
 
 pre[class*="language-"]::selection,
 pre[class*="language-"] ::selection,
 code[class*="language-"]::selection,
 code[class*="language-"] ::selection {
-  text-shadow: none;
-  background: #6a51e6;
+  background: #3c526d;
 }
 
 /* Code blocks */
@@ -63,179 +47,334 @@ pre[class*="language-"] {
   overflow: auto;
 }
 
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #111b27;
+}
+
 /* Inline code */
 :not(pre) > code[class*="language-"] {
-  padding: 0.1em;
+  padding: 0.1em 0.3em;
   border-radius: 0.3em;
+  white-space: normal;
 }
 
 .token.comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  color: #6c6783;
+  color: #8da1b9;
 }
 
 .token.punctuation {
-  color: #6c6783;
+  color: #e3eaf2;
 }
 
-.token.namespace {
-  opacity: 0.7;
-}
-
+.token.delimiter.important,
+.token.selector .parent,
 .token.tag,
-.token.operator,
-.token.number {
-  color: #e09142;
+.token.tag .token.punctuation {
+  color: #66cccc;
 }
 
-.token.property,
-.token.function {
-  color: #9a86fd;
-}
-
-.token.tag-id,
-.token.selector,
-.token.atrule-id {
-  color: #eeebff;
-}
-
-code.language-javascript,
-.token.attr-name {
-  color: #c4b9fe;
-}
-
-code.language-css,
-code.language-scss,
+.token.attr-name,
 .token.boolean,
-.token.string,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.language-scss .token.string,
-.style .token.string,
-.token.attr-value,
-.token.keyword,
-.token.control,
-.token.directive,
-.token.unit,
-.token.statement,
-.token.regex,
-.token.atrule {
-  color: #ffcc99;
+.token.boolean.important,
+.token.number,
+.token.constant,
+.token.selector .token.attribute {
+  color: #e6d37a;
 }
 
-.token.placeholder,
+.token.class-name,
+.token.key,
+.token.parameter,
+.token.property,
+.token.property-access,
 .token.variable {
-  color: #ffcc99;
+  color: #6cb8e6;
 }
 
-.token.deleted {
-  text-decoration: line-through;
+.token.attr-value,
+.token.inserted,
+.token.color,
+.token.selector .token.value,
+.token.string,
+.token.string .token.url-link {
+  color: #91d076;
 }
 
-.token.inserted {
-  border-bottom: 1px dotted #eeebff;
-  text-decoration: none;
+.token.builtin,
+.token.keyword-array,
+.token.package,
+.token.regex {
+  color: #f4adf4;
+}
+
+.token.function,
+.token.selector .token.class,
+.token.selector .token.id {
+  color: #c699e3;
+}
+
+.token.atrule .token.rule,
+.token.combinator,
+.token.keyword,
+.token.operator,
+.token.pseudo-class,
+.token.pseudo-element,
+.token.selector,
+.token.unit {
+  color: #e9ae7e;
+}
+
+.token.deleted,
+.token.important {
+  color: #cd6660;
+}
+
+.token.keyword-this,
+.token.this {
+  color: #6cb8e6;
+}
+
+.token.important,
+.token.keyword-this,
+.token.this,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.delimiter.important {
+  font-weight: inherit;
 }
 
 .token.italic {
   font-style: italic;
 }
 
-.token.important,
-.token.bold {
-  font-weight: bold;
-}
-
-.token.important {
-  color: #c4b9fe;
-}
-
 .token.entity {
   cursor: help;
 }
 
-pre > code.highlight {
-  outline: 0.4em solid #8a75f5;
-  outline-offset: 0.4em;
+.language-markdown .token.title,
+.language-markdown .token.title .token.punctuation {
+  color: #6cb8e6;
+  font-weight: bold;
 }
 
-/* overrides color-values for the Line Numbers plugin
- * http://prismjs.com/plugins/line-numbers/
- */
-.line-numbers.line-numbers .line-numbers-rows {
-  border-right-color: white !important;
+.language-markdown .token.blockquote.punctuation {
+  color: #f4adf4;
 }
 
-.line-numbers .line-numbers-rows > span:before {
-  color: #3c3949;
+.language-markdown .token.code {
+  color: #66cccc;
+}
+
+.language-markdown .token.hr.punctuation {
+  color: #6cb8e6;
+}
+
+.language-markdown .token.url .token.content {
+  color: #91d076;
+}
+
+.language-markdown .token.url-link {
+  color: #e6d37a;
+}
+
+.language-markdown .token.list.punctuation {
+  color: #f4adf4;
+}
+
+.language-markdown .token.table-header {
+  color: #e3eaf2;
+}
+
+.language-json .token.operator {
+  color: #e3eaf2;
+}
+
+.language-scss .token.variable {
+  color: #66cccc;
+}
+
+/* overrides color-values for the Show Invisibles plugin
+  * https://prismjs.com/plugins/show-invisibles/
+  */
+.token.token.tab:not(:empty):before,
+.token.token.cr:before,
+.token.token.lf:before,
+.token.token.space:before {
+  color: #8da1b9;
+}
+
+/* overrides color-values for the Toolbar plugin
+  * https://prismjs.com/plugins/toolbar/
+  */
+div.code-toolbar > .toolbar.toolbar > .toolbar-item > a,
+div.code-toolbar > .toolbar.toolbar > .toolbar-item > button {
+  color: #111b27;
+  background: #6cb8e6;
+}
+
+div.code-toolbar > .toolbar.toolbar > .toolbar-item > a:hover,
+div.code-toolbar > .toolbar.toolbar > .toolbar-item > a:focus,
+div.code-toolbar > .toolbar.toolbar > .toolbar-item > button:hover,
+div.code-toolbar > .toolbar.toolbar > .toolbar-item > button:focus {
+  color: #111b27;
+  background: #6cb8e6da;
+  text-decoration: none;
+}
+
+div.code-toolbar > .toolbar.toolbar > .toolbar-item > span,
+div.code-toolbar > .toolbar.toolbar > .toolbar-item > span:hover,
+div.code-toolbar > .toolbar.toolbar > .toolbar-item > span:focus {
+  color: #111b27;
+  background: #8da1b9;
 }
 
 /* overrides color-values for the Line Highlight plugin
-* http://prismjs.com/plugins/line-highlight/
-*/
+  * http://prismjs.com/plugins/line-highlight/
+  */
 .line-highlight.line-highlight {
-  background: rgba(224, 145, 66, 0.2);
-  background: -webkit-linear-gradient(
-    left,
-    rgba(224, 145, 66, 0.2) 70%,
-    rgba(224, 145, 66, 0)
-  );
-  background: linear-gradient(
-    to right,
-    rgba(224, 145, 66, 0.2) 70%,
-    rgba(224, 145, 66, 0)
-  );
+  background: #3c526d5f;
+  background: linear-gradient(to right, #3c526d5f 70%, #3c526d55);
 }
 
-pre {
-  overflow-x: auto;
+.line-highlight.line-highlight:before,
+.line-highlight.line-highlight[data-end]:after {
+  background-color: #8da1b9;
+  color: #111b27;
+  box-shadow: 0 1px #3c526d;
 }
 
+pre[id].linkable-line-numbers.linkable-line-numbers
+  span.line-numbers-rows
+  > span:hover:before {
+  background-color: #8da1b918;
+}
+
+/* overrides color-values for the Line Numbers plugin
+  * http://prismjs.com/plugins/line-numbers/
+  */
+.line-numbers.line-numbers .line-numbers-rows {
+  border-right: 1px solid #0b121b;
+  background: #0b121b7a;
+}
+
+.line-numbers .line-numbers-rows > span:before {
+  color: #8da1b9da;
+}
+
+/* overrides color-values for the Match Braces plugin
+  * https://prismjs.com/plugins/match-braces/
+  */
+.rainbow-braces .token.token.punctuation.brace-level-1,
+.rainbow-braces .token.token.punctuation.brace-level-5,
+.rainbow-braces .token.token.punctuation.brace-level-9 {
+  color: #e6d37a;
+}
+
+.rainbow-braces .token.token.punctuation.brace-level-2,
+.rainbow-braces .token.token.punctuation.brace-level-6,
+.rainbow-braces .token.token.punctuation.brace-level-10 {
+  color: #f4adf4;
+}
+
+.rainbow-braces .token.token.punctuation.brace-level-3,
+.rainbow-braces .token.token.punctuation.brace-level-7,
+.rainbow-braces .token.token.punctuation.brace-level-11 {
+  color: #6cb8e6;
+}
+
+.rainbow-braces .token.token.punctuation.brace-level-4,
+.rainbow-braces .token.token.punctuation.brace-level-8,
+.rainbow-braces .token.token.punctuation.brace-level-12 {
+  color: #c699e3;
+}
+
+/* overrides color-values for the Diff Highlight plugin
+  * https://prismjs.com/plugins/diff-highlight/
+  */
+pre.diff-highlight > code .token.token.deleted:not(.prefix),
+pre > code.diff-highlight .token.token.deleted:not(.prefix) {
+  background-color: #cd66601f;
+}
+
+pre.diff-highlight > code .token.token.inserted:not(.prefix),
+pre > code.diff-highlight .token.token.inserted:not(.prefix) {
+  background-color: #91d0761f;
+}
+
+/* overrides color-values for the Command Line plugin
+  * https://prismjs.com/plugins/command-line/
+  */
+.command-line .command-line-prompt {
+  border-right: 1px solid #0b121b;
+}
+
+.command-line .command-line-prompt > span:before {
+  color: #8da1b9da;
+}
+
+pre[class*="language-"].line-numbers {
+  position: relative;
+  padding-left: 3.8em;
+  counter-reset: linenumber;
+}
+
+pre[class*="language-"].line-numbers > code {
+  position: relative;
+  white-space: inherit;
+}
 /**
    * Inspired by gatsby remark prism - https://www.gatsbyjs.com/plugins/gatsby-remark-prismjs/
    * 1. Make the element just wide enough to fit its content.
    * 2. Always fill the visible space in .code-highlight.
    */
-.code-highlight {
-  float: left; /* 1 */
-  min-width: 100%; /* 2 */
-}
-
-.code-line {
-  display: block;
-  padding-left: 16px;
-  padding-right: 16px;
-  margin-left: -16px;
-  margin-right: -16px;
-  border-left-width: 4px;
-  border-left-color: rgba(31, 41, 55, 0); /* Set code block color */
-}
-
-.code-line.inserted {
-  background-color: rgba(16, 185, 129, 0.2); /* Set inserted line (+) color */
-}
-
-.code-line.deleted {
-  background-color: rgba(239, 68, 68, 0.2); /* Set deleted line (-) color */
-}
-
-.highlight-line {
-  margin-left: -16px;
-  margin-right: -16px;
-  background-color: rgba(55, 65, 81, 0.5); /* Set highlight bg color */
-  border-left-width: 4px;
-  border-left-color: rgb(59, 130, 246); /* Set highlight accent border color */
-}
-
-.line-number::before {
-  display: inline-block;
-  width: 1rem;
-  text-align: right;
-  margin-right: 16px;
-  margin-left: -8px;
-  color: rgb(156, 163, 175); /* Line number color */
-  content: attr(line);
+   .code-highlight {
+	float: left; /* 1 */
+	min-width: 100%; /* 2 */
+  }
+  
+  .code-line {
+	display: block;
+	padding-left: 16px;
+	padding-right: 16px;
+	margin-left: -16px;
+	margin-right: -16px;
+	border-left-width: 4px;
+	border-left-color: rgba(31, 41, 55, 0); /* Set code block color */
+  }
+  
+  .code-line.inserted {
+	background-color: rgba(16, 185, 129, 0.2); /* Set inserted line (+) color */
+  }
+  
+  .code-line.deleted {
+	background-color: rgba(239, 68, 68, 0.2); /* Set deleted line (-) color */
+  }
+  
+  .highlight-line {
+	margin-left: -16px;
+	margin-right: -16px;
+	background-color: rgba(55, 65, 81, 0.5); /* Set highlight bg color */
+	border-left-width: 4px;
+	border-left-color: rgb(59, 130, 246); /* Set highlight accent border color */
+  }
+  
+  .line-number::before {
+	display: inline-block;
+	width: 1rem;
+	text-align: right;
+	margin-right: 16px;
+	margin-left: -8px;
+	color: rgb(156, 163, 175); /* Line number color */
+	content: attr(line);
+  }
+@media only screen and (max-width: 550px) {
+  pre {
+    font-size: 12px;
+  }
 }
