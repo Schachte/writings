@@ -63,6 +63,7 @@
       cursor: pointer;
       display: flex;
       align-items: center;
+      font-family: 'Space Mono', monospace;
 
       &_img {
         max-width: 100px;
@@ -81,15 +82,13 @@
 
       &_txt {
         // font-family: "Permanent Marker";
-        font-weight: 900;;
         font-size: 2rem;
         position: relative;
         position: absolute;
         left: 7rem;
-        transition: opacity 200ms ease-in-out;
 
         &:hover {
-          opacity: 0.2;
+          opacity: 0.8;
         }
       }
     }
