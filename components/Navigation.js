@@ -33,7 +33,7 @@ export default function Navigation({ showLogo = false }) {
             />
           </Link>
           <Link href="/">
-            <span className={styles["nav__listlogo_txt"]}>Ryan Schachte</span>
+            <span className={styles["nav__listlogo_txt"]}>./R.Schachte</span>
           </Link>
         </li>
       );

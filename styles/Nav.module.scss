@@ -63,7 +63,7 @@
       cursor: pointer;
       display: flex;
       align-items: center;
-      font-family: 'Space Mono', monospace;
+      font-family: 'Roboto Mono', monospace;
 
       &_img {
         max-width: 100px;
@@ -83,9 +83,24 @@
       &_txt {
         // font-family: "Permanent Marker";
         font-size: 2rem;
-        position: relative;
         position: absolute;
         left: 7rem;
+
+        &::after {
+          content: "";
+          width: 5px;
+          height: 2rem;
+          margin-left: 5px;
+          background: var(--border-color);
+          display:inline-flex;
+          animation: cursor-blink 1.0s steps(2) infinite;
+        }
+
+        @keyframes cursor-blink {
+          0% {
+            opacity: 0;
+          }
+        }
 
         &:hover {
           opacity: 0.8;

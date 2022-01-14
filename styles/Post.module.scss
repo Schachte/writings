@@ -100,6 +100,9 @@
   &tableofcontents {
     margin-top: 50px;
     width: 100%;
+    background-color: var(--background-color);
+    z-index: 99;
+    position: relative;
 
     &_heading {
       font-size: 2rem;

@@ -11,6 +11,7 @@ const slugify = (title) => {
 const renderMonthlyPosts = (year, data) => {
   const availableMonths = Object.keys(data);
 
+  let isNewPost = true;
   return (
     <div className={styles["month"]}>
       {availableMonths.map((currentMonth) => {
@@ -24,13 +25,16 @@ const renderMonthlyPosts = (year, data) => {
             {currentMonth} {year}
           </span>
         );
+
         const formattedPostings = monthPosts.map((post) => {
           let icon = post["type"] == "video" ? "🎥" : "📝";
-          return (
+          const component = (
             <Link key={post.title} href={`/posts/${slugify(post.title)}`}>
-              <li className={styles["entry"]}>{`${icon} ${post["title"]}`}</li>
+              <li className={styles["entry"]}>{`${icon} ${post["title"]}`}{isNewPost && <span style={{color: "orange"}}> [new] </span>} </li>
             </Link>
           );
+          isNewPost = false
+          return component
         });
         return (
           <>
