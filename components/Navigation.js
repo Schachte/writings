@@ -92,7 +92,7 @@ export default function Navigation({ showLogo = false }) {
             onClick={() => alert("Email me: email @ ryan - schachte dot com")}
             className={styles["nav__listitem"]}
           >
-            Contact
+            About
           </li>
         </ul>
         <div onClick={toggleTheme} className={styles["toggle_theme"]}>
