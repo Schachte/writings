@@ -5,7 +5,7 @@ export default function Footer({ children }) {
     <div className={styles["footer"]}>
       <span>{children}</span> 
       <span>You may use all this code without my permission.</span>
-      <span style={{color: "#20C20a", opacity: ".9"}}><span className={styles["copyleft"]}/> Fuck Copyright - {new Date().getFullYear()}</span> 
+      <span style={{color: "#20C20a", opacity: ".9"}}><span className={styles["copyleft"]}/> Copyleft - {new Date().getFullYear()}</span> 
     </div>
   );
 }
