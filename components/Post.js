@@ -51,6 +51,7 @@ export default function Post({ content, metadata, toc }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="author" content="Ryan Schachte" />
+        <meta name="keywords" content={metadata.keywords || ""}></meta>
         <meta
           name="description"
           content={metadata.description}

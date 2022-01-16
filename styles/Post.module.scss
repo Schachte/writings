@@ -138,6 +138,8 @@
     margin-top: 50px;
     width: 100%;
     position: relative;
+    font-size: .9rem;
+        // font-family: 'Merriweather', serif;
   }
 
   &content h2,
@@ -158,6 +160,7 @@
   &content p {
     line-height: 2.5rem !important;
     font-size: 1.2rem;
+    margin-top: 1rem;
   }
 }
 

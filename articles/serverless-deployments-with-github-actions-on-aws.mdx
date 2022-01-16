@@ -1,0 +1,216 @@
+---
+title: 'Serverless Deployments with Github Actions on AWS'
+type: 'article'
+date: 'January 16th, 2022'
+dateMetadata: '01/16/2022'
+description: 'Understanding how to automate deployments with the Serverless framework with Github actions on AWS'
+author: 'Ryan Schachte'
+keywords: 'serverless, aws, serverless framework, github, github actions, AWS, amazon web services, automated, Iac, cloudformation, template'
+---
+
+# Background
+
+At the time of writing this article, the official Serverless repo that maintains the Github Action for Serverless deployments is riddled with [bugs](https://github.com/serverless/github-action/issues) and no longer maintained.
+
+In this article, we will learn the following:
+
+- How to configure IAM to support a deployment account/service account for Github
+- Setting up Github Repo secrets
+- How to create an automated deployment with Github actions
+- Automating our stack deployments when we merge PR
+
+You can view a sample repo of my AWS serverless deployments [by clicking this link](https://github.com/Schachte/ServerlessNewsletter)
+
+# IAM Setup
+
+IAM is the identity and access management suite in AWS that handles everything from user accounts to access management. It’s imperative that we create a separate service account for our Github Action that has permissions to interface with our AWS account. 
+
+## Setting Up an IAM Service Account
+
+Typically it’s good practice to first create a **role** that has the permissions you’re interested in, then attach that role to a group of users or a user themselves. The reason this is good practice is because you can blanket edit the entire policy without needing to individually modify the inline policies of each user.
+
+For simplicity, since we only have one service account, we are going to add an inline administration access policy to that user. In production, it’s best to limit the access scope to only the resources and resource actions the account actually needs.
+
+In the search bar of the AWS console, open up IAM.
+
+![Untitled](/images/serverless-deployments-githubactions/Untitled.png)
+
+Once open, let’s go ahead and create a new user
+
+![Untitled](/images/serverless-deployments-githubactions/Untitled%201.png)
+
+In this case, programmatic access is sufficient since we’ll be invoking the deployment to AWS via a remote build server that leverages the access key id and secret as the credentials.
+
+As mentioned previously, I’m attaching an inline-policy directly. You are free to create a managed policy and attach it to the user or even make a group, add the user to the group and apply a policy to the group. 
+
+![Untitled](/images/serverless-deployments-githubactions/Untitled%202.png)
+
+Once you click through the **next** buttons, you’ll end with the following screen
+
+![Untitled](/images/serverless-deployments-githubactions/Untitled%203.png)
+
+Save this secret temporarily somewhere safe because you won’t be able to access it ever again. 
+
+# Setting Up Secrets For Your Action
+
+It’s common in development to reference your secrets or passwords from some environment variable or key vault like KMS on Amazon or Key Protect on IBM Bluemix. 
+
+For our case, we’re interested in storing the secret securely in the backend key store of our Github repository that will be responsible for deploying our application to cloudformation on AWS. 
+
+Open up your repository and go into settings
+
+![Untitled](/images/serverless-deployments-githubactions/Untitled%204.png)
+
+Let’s go ahead and add our secrets that we got from AWS in the previous step:
+
+![Untitled](/images/serverless-deployments-githubactions/Untitled%205.png)
+
+![Untitled](/images/serverless-deployments-githubactions/Untitled%206.png)
+
+The name field is important, don’t forget it! Also, don’t forget that once you store the value in Github, you also won’t ever be able to retrieve the value again.
+
+# Defining the Action Template
+
+Ok, so now we have:
+
+- Service account defined that has permission to do the deployment
+- Secrets stored in the repository for that user that we want to target during our deployment
+
+In this section, we will develop an actions template that will be invoked each time we merge or push to the master branch. 
+
+Create a file underneath the `.github`folder in the root:
+
+```yaml
+❯ tree .github                                                                                                                                      ─╯
+.github
+└── workflows
+    └── my-github-action.yml
+```
+
+## Setting Up Deployment Rules
+
+```yaml
+name: Serverless Deployment Dev
+on:
+  push:
+    branches:
+      - master
+```
+
+Let’s give our action a name and a trigger. What we’re saying here is that we only want to run this action upon pushing (or merging!) to the master branch. This branch can be any target branch you’re interested in. For example, you could have a development branch for a staging release and then a release branch for prod. 
+
+## Defining How The Job Runs
+
+```yaml
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+```
+
+We will name our deployment job and specify the OS that will run as the container of our code gets built. We specify the [strategy](https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix) along with the version of the NodeJS runtime we’re interested in.
+
+## Defining Job Steps
+
+```yaml
+steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - run: node ./node_modules/serverless/bin/serverless.js plugin install -n serverless-bundle
+      - run: node ./node_modules/serverless/bin/serverless.js config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - run: node ./node_modules/serverless/bin/serverless.js deploy --verbose
+        working-directory: /home/runner/work/ServerlessNewsletter/ServerlessNewsletter/
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          SLS_DEBUG: 1
+```
+
+The final process is to define the individual steps that we want our job to invoke in sequential order. You can specify additional actions you want to leverage in your custom action to add more functionality to your job. In our case we are adding two additional dependency actions:
+
+1. [actions/checkout@v2](https://github.com/actions/checkout) 
+    1. This action checks-out your repository under `$GITHUB_WORKSPACE`, so your workflow can access it.
+2. [actions/setup-node@v1](https://github.com/actions/setup-node)
+    1. Downloads and caches node/npm for you locally
+    2. And much more!
+    
+
+Each `run` step will invoke synchronously. In my case, I had a plugin I needed to install manually along with any npm dependencies in my `package.json`. 
+
+You may be wondering why I specify the full path to the serverless module via node_modules. There are some solutions like [here](https://github.com/serverless/serverless/issues/4889) and [here](https://stackoverflow.com/questions/45130789/serverless-command-not-found-in-ubuntu-16-04). However, I think being explicit like this is fine and you could even cache the path prefix in a local variable to clean it up. 
+
+```yaml
+- run: node ./node_modules/serverless/bin/serverless.js config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+```
+
+This snippet above shows how we can pass our repository secrets into the deployment command. `${{ secrets.AWS_SECRET_ACCESS_KEY }}`. 
+
+I noticed it was also important to specify the `working directory` so you don’t have any path issues when running the serverless command from the `cwd`.
+
+`working-directory: /home/runner/work/ServerlessNewsletter/ServerlessNewsletter/`
+
+In this case, my repository name was `ServerlessNewsletter`. You might have to modify this to  accommodate your project structure. 
+
+# Verifying Deployment
+
+Simply commit your changes and push to your target branch, in my case it was `master`. From here, you can view the job status:
+
+![Untitled](/images/serverless-deployments-githubactions/Untitled%207.png)
+
+From here, you can see your workflows and jobs:
+
+![Untitled](/images/serverless-deployments-githubactions/Untitled%208.png)
+
+![Untitled](/images/serverless-deployments-githubactions/Untitled%209.png)
+
+You can see in detail which jobs did what and if any failed 
+
+![Untitled](/images/serverless-deployments-githubactions/Untitled%2010.png)
+
+# Final Solution
+
+```yaml
+❯ tree .github                                                                                                                                      ─╯
+.github
+└── workflows
+    └── my-github-action.yml
+```
+
+```yaml showlinenumbers
+name: Serverless Deployment Dev
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - run: node ./node_modules/serverless/bin/serverless.js plugin install -n serverless-bundle
+      - run: node ./node_modules/serverless/bin/serverless.js config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - run: node ./node_modules/serverless/bin/serverless.js deploy --verbose
+        working-directory: /home/runner/work/ServerlessNewsletter/ServerlessNewsletter/
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          SLS_DEBUG: 1
+```
+
+Thanks for reading!
