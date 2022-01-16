@@ -88,11 +88,10 @@ export default function Navigation({ showLogo = false }) {
               <a target="_blank">Resume</a>
             </Link>
           </li>
-          <li
-            onClick={() => alert("Email me: email @ ryan - schachte dot com")}
-            className={styles["nav__listitem"]}
-          >
-            About
+          <li className={styles["nav__listitem"]}>
+            <Link href="/posts/welcome-to-my-blog">
+              <a>About</a>
+            </Link>
           </li>
         </ul>
         <div onClick={toggleTheme} className={styles["toggle_theme"]}>
