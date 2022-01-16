@@ -150,11 +150,16 @@ You may be wondering why I specify the full path to the serverless module via no
 - run: node ./node_modules/serverless/bin/serverless.js config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 ```
 
-This snippet above shows how we can pass our repository secrets into the deployment command. `${{ secrets.AWS_SECRET_ACCESS_KEY }}`. 
+This snippet above shows how we can pass our repository secrets into the deployment command. 
+```yaml 
+${{ secrets.AWS_SECRET_ACCESS_KEY }}
+```
 
 I noticed it was also important to specify the `working directory` so you don’t have any path issues when running the serverless command from the `cwd`.
 
-`working-directory: /home/runner/work/ServerlessNewsletter/ServerlessNewsletter/`
+```yaml
+working-directory: /home/runner/work/ServerlessNewsletter/ServerlessNewsletter/
+```
 
 In this case, my repository name was `ServerlessNewsletter`. You might have to modify this to  accommodate your project structure. 
 
