@@ -14,7 +14,7 @@ export default function AttentionButton({link}) {
                 "cursor": "pointer",
                 "color": "black"
         }}>
-            <a style={{all: "unset"}} href={link} target="_blank">View Github Repository Here</a>
+            <a style={{all: "unset"}} href={link} rel="noreferrer" target="_blank">View Github Repository Here</a>
         </div>
     )
 }
