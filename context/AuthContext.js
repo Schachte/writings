@@ -9,17 +9,14 @@ export const AuthProvider = ( {children} ) => {
 
     // Register
     const register = async (user) => {
-        console.log(user)
     }
 
     // Login 
     const login = async (user) => {
-        console.log(user)
     }
 
     // Logout
     const logout = async (user) => {
-        console.log(user)
     }
 
     // Check if logged in

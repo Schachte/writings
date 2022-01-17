@@ -47,8 +47,6 @@ export default function Hero({ postMetadata }) {
       setDisabled(true);
       setSubscribeStatus("Already Subscribed!");
       setEmail("Thanks for subscribing!");
-    } else {
-      console.log(alreadySubscribed);
     }
   }, [disabled, email]);
 
