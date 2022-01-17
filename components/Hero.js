@@ -67,6 +67,7 @@ export default function Hero({ postMetadata }) {
               with the broader internet community. Wanna chat? Drop me a message
               from my social above.
             </span>
+
             <div className={styles["hero__newsletter"]}>
               <input
                 className={styles["hero__newsletter_input"]}
