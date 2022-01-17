@@ -11,21 +11,21 @@ const slugify = (title) => {
 // TODO Extract to diff file
 const pastPublications = {
   "[FreeCodeCamp Course] - Recursive Thinking Deeply Understood": "https://www.youtube.com/watch?v=IJDJ0kBx2LM",
+  "[Live Stream] Building Big Data Pipelines on AWS":
+    "https://www.youtube.com/watch?v=w8nKMl2CP7o",
   "Visually Understanding DNS": "https://www.youtube.com/watch?v=vrxwXXytEuI",
-  "NATs and CIDR Blocks For Networking":
-    "https://www.youtube.com/watch?v=z07HTSzzp3o",
-  "Database Indexing & Performance Explained":
-    "https://www.youtube.com/watch?v=VcLfF7TwII8",
   "Algorithmic Mental Models for Sliding Window":
     "https://www.youtube.com/watch?v=MK-NZ4hN7rs",
+  "NATs and CIDR Blocks For Networking":
+    "https://www.youtube.com/watch?v=z07HTSzzp3o",
+  "Introduction to Docker": "https://www.youtube.com/watch?v=JSLpG_spOBM",
+  "Diving Deeper Into Docker": "https://www.youtube.com/watch?v=CcxbHkqzJuI",
+  "Database Indexing & Performance Explained":
+    "https://www.youtube.com/watch?v=VcLfF7TwII8",
   "Quicksort Time Complexity Analysis":
     "https://www.youtube.com/watch?v=UPyYcRW5a8o",
   "Understanding How To Solve Recurrence Relations":
     "https://www.youtube.com/watch?v=zVeNqLg2uUc",
-  "[Live Stream] Building Big Data Pipelines on AWS":
-    "https://www.youtube.com/watch?v=w8nKMl2CP7o",
-  "Introduction to Docker": "https://www.youtube.com/watch?v=JSLpG_spOBM",
-  "Diving Deeper Into Docker": "https://www.youtube.com/watch?v=CcxbHkqzJuI",
   "Theory & Implementation of Stable Marriage Algorithm":
     "https://www.youtube.com/watch?v=FhRf0j068ZA",
   "Dependency Injection Simplified":
