@@ -158,10 +158,11 @@
       font-family: 'Roboto Mono';
 
       &::placeholder {
-        color: rgb(189, 189, 189);
+        color: rgb(126, 126, 126);
       }
 
       &:hover, &:focus {
+        color: black !important;
         cursor: pointer;
         background-color: #ADFF9E;
         border: 5px solid limegreen;
