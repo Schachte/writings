@@ -159,7 +159,8 @@
 
       &::placeholder {
         color: rgb(126, 126, 126);
-        font-size: .8rem;
+        font-size: .9rem;
+        font-weight: 500;
       }
 
       &:hover, &:focus {
@@ -185,7 +186,7 @@
 
         &:hover {
           cursor: pointer;
-          filter: brightness(.9);
+          filter: brightness(.7);
         }
       }
     }

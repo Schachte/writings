@@ -2,7 +2,55 @@ import styles from "../styles/Hero.module.scss";
 import Link from "next/link";
 import AllPosts from "@/components/AllPosts";
 
+import { useState, useEffect } from "react";
+
 export default function Hero({ postMetadata }) {
+  const [email, setEmail] = useState();
+  const [subscribeStatus, setSubscribeStatus] = useState("Subscribe");
+  const [disabled, setDisabled] = useState(false);
+
+  const subscribeToNewsletter = () => {
+    setSubscribeStatus("Subscribing...");
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Access-Control-Expose-Headers": "Access-Control-Allow-Origin",
+        "Access-Control-Allow-Credentials": true,
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({ email }),
+    };
+
+    fetch(
+      "https://9rz6ublsmg.execute-api.us-west-2.amazonaws.com/prod/subscribe",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setSubscribeStatus("Subscribed! Check Email.");
+        setDisabled(true);
+        setEmail("Thanks for subscribing!");
+
+        if (typeof window !== "undefined") {
+          localStorage.setItem("subscribed", true);
+        }
+      })
+      .catch((err) => setSubscribeStatus("Error! Verify Email."));
+  };
+
+  const alreadySubscribed =
+    typeof window !== "undefined" ? localStorage.getItem("subscribed") : false;
+
+  useEffect(() => {
+    if (alreadySubscribed == "true") {
+      setDisabled(true);
+      setEmail("Thanks for subscribing!");
+    } else {
+      console.log(alreadySubscribed);
+    }
+  }, [disabled, email]);
+
   return (
     <div className={styles["hero"]}>
       <div className={styles["hero__container"]}>
@@ -73,13 +121,17 @@ export default function Hero({ postMetadata }) {
                 className={styles["hero__newsletter_input"]}
                 type="text"
                 placeholder="Sign up for my occasional newsletter"
+                value={email}
+                disabled={disabled}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <button
-                onClick={() => alert("Not yet enabled")}
+                onClick={subscribeToNewsletter}
+                disabled={disabled}
                 className={styles["hero__newsletter_inputbutton"]}
                 type="submit"
               >
-                Subscribe
+                {subscribeStatus}
               </button>
             </div>
           </div>
