@@ -45,6 +45,7 @@ export default function Hero({ postMetadata }) {
   useEffect(() => {
     if (alreadySubscribed == "true") {
       setDisabled(true);
+      setSubscribeStatus("Already Subscribed!");
       setEmail("Thanks for subscribing!");
     } else {
       console.log(alreadySubscribed);
