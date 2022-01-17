@@ -10,6 +10,7 @@ const slugify = (title) => {
 
 // TODO Extract to diff file
 const pastPublications = {
+  "[FreeCodeCamp Course] - Recursive Thinking Deeply Understood": "https://www.youtube.com/watch?v=IJDJ0kBx2LM",
   "Visually Understanding DNS": "https://www.youtube.com/watch?v=vrxwXXytEuI",
   "NATs and CIDR Blocks For Networking":
     "https://www.youtube.com/watch?v=z07HTSzzp3o",
