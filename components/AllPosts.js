@@ -84,7 +84,7 @@ const generatePastPublicationsJsx = (entries) => {
   Object.entries(entries).forEach(([k, v]) => {
     publicationList = [
       ...publicationList,
-      <Link key={k.replaceAll(" ", "")} href={v}>
+      <Link key={k} href={v}>
         <li className={styles["entry"]}>{`🎥 ${k}`}</li>
       </Link>,
     ];
@@ -111,7 +111,6 @@ export default function AllPosts({ postMetadata }) {
   return (
     <div className={styles["posts-container"]}>
       {sortedPosts.map((post) => renderMonthlyPosts(post[0], post[1]))}
-
       <div className={styles["month"]}>
         <span className={styles["month_heading"]}>Past Publications</span>
         <ul className={styles["month_posts"]}>
