@@ -84,7 +84,7 @@ const generatePastPublicationsJsx = (entries) => {
   Object.entries(entries).forEach(([k, v]) => {
     publicationList = [
       ...publicationList,
-      <Link href={v}>
+      <Link key={k.replaceAll(" ", "")} href={v}>
         <li className={styles["entry"]}>{`🎥 ${k}`}</li>
       </Link>,
     ];
