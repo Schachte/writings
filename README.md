@@ -3,6 +3,7 @@
 [Click To View My Blog](https://ryan-schachte.com)
 
 Logo Design: Alyssa Sopanarat
+Face Design: Madeleine Ostwald
 
 - Personal Writings
 - Personal Weekly Newsletter

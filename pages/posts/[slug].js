@@ -83,7 +83,7 @@ export default function PostPage({ source="", frontMatter="", toc="" }) {
         <Post content={source} metadata={frontMatter} toc={toc} />
         <Footer>
           Site Built &amp; Maintained By: Ryan Schachte // Logo Design By:
-          Alyssa Sopanarat
+          Alyssa Sopanarat // Face Art By: Madeleine Ostwald
         </Footer>
       </div>
     </div>
