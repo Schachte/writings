@@ -20,7 +20,7 @@ export default function HomePage({ postFrontMatter }) {
         <div className="content-wrapper">
           <Navigation />
           <div style={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "4rem", fontSize: "2rem"}}>
-            You've been unsubscribed from my newsletter, I'm sad to see you go!
+            You&apos;ve been unsubscribed from my newsletter, I&apos;m sad to see you go!
           </div>
           <Footer>
             Site Built &amp; Maintained By: Ryan Schachte // Logo Design By:
