@@ -44,6 +44,8 @@ export default function HomePage({ postFrontMatter }) {
           name="description"
           content="A blog covering engineering, finance, algorithms, computer science and technology. Ryan Schachte is an avid learner, teacher and engineer. Articles covering interview prep, leetcode, programming and design."
         />
+        <link rel="preload" as="image" href="/images/head_white.png"></link>
+        <link rel="preload" as="image" href="/images/head_black.png"></link>
       </Head>
       <div className="wrapper">
         <div className="content-wrapper">
