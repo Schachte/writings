@@ -2,6 +2,8 @@ import Head from "next/head";
 import Navigation from "../components/Navigation";
 import Footer from "@/components/Footer";
 
+import styles from '../styles/Unsubscribe.module.scss'
+
 
 export default function HomePage({ postFrontMatter }) {
   return (
@@ -20,7 +22,7 @@ export default function HomePage({ postFrontMatter }) {
         <div className="content-wrapper">
           <Navigation />
           <div style={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "4rem", fontSize: "2rem"}}>
-            You&apos;ve been unsubscribed from my newsletter, I&apos;m sad to see you go!
+            <span className={styles["unsubscribe"]}>You&apos;ve been unsubscribed from my newsletter, I&apos;m sad to see you go!</span>
           </div>
           <Footer>
             Site Built &amp; Maintained By: Ryan Schachte // Logo Design By:
