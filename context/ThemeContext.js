@@ -1,13 +1,14 @@
-import { useEffect } from 'react';
-import { AuthProvider } from '@/context/AuthContext'
-import '../styles/globals.scss'
-import '../styles/theme.scss'
+import { useEffect, createContext, useState } from "react";
 
-import '../styles/prism.scss'
-import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
-import { ThemeContextProvider } from "../context/ThemeContext";
+const ThemeContextConsumer = createContext();
 
-function MyApp({ Component, pageProps }) {
+const colorThemes = {
+  dark: () => "dark",
+  light: () => "light"
+};
+
+const ThemeContextProvider = ({ children }) => {
+  const [isDark, setIsDark] = useState(colorThemes["dark"]());
 
   const determineUserPreference = () => {
     if(localStorage.schachteTheme) {
@@ -29,18 +30,26 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     const userPref = determineUserPreference()
+    setIsDark(userPref);
     let app = document.getElementsByTagName('BODY')[0]
     app.setAttribute('data-theme', userPref)
     let bodySelector = document.querySelector('body').classList
     bodySelector.remove('preload')
-  })
+  }, [])
+
+  const toggleDarkMode = () => {
+    if (isDark === "dark") {
+      setIsDark("light");
+    } else {
+      setIsDark("dark");
+    }
+  };
 
   return (
+    <ThemeContextConsumer.Provider value={{ isDark, toggleDarkMode }}>
+      {children}
+    </ThemeContextConsumer.Provider>
+  );
+};
 
-    <ThemeContextProvider>
-      <Component {...pageProps} />
-    </ThemeContextProvider>
-  )
-}
-
-export default MyApp
+export { ThemeContextConsumer, ThemeContextProvider };

@@ -1,9 +1,11 @@
 import styles from "../styles/Post.module.scss";
 import { getMDXComponent } from "mdx-bundler/client";
-import React, { useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
+
+import { ThemeContextConsumer } from "@/context/ThemeContext";
 
 import MDXComponents from "@/mdx/MDXComponents";
 
@@ -44,18 +46,18 @@ export default function Post({ content, metadata, toc }) {
   }, []);
 
   const Component = React.useMemo(() => getMDXComponent(content), [content]);
+  const ctx = useContext(ThemeContextConsumer);
+  const currentTheme = ctx["isDark"];
+
   return (
-    <>
+    <div>
       <Head>
         <title>{metadata.title}</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="author" content="Ryan Schachte" />
-        <meta name="keywords" content={metadata.keywords || ""}></meta>
-        <meta
-          name="description"
-          content={metadata.description}
-        />
+        <meta name="keywords" content={metadata.keywords || ""} />
+        <meta name="description" content={metadata.description} />
       </Head>
       <div onClick={topScroll} id={styles["scrollToTop"]} title="Go to top">
         ⬆️
@@ -75,8 +77,10 @@ export default function Post({ content, metadata, toc }) {
               <Image
                 placeholder="blur"
                 blurDataURL="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
-                src="/images/head.png"
-                height="100px"
+                src={`/images/${
+                  currentTheme == "light" ? "head_black" : "head_white"
+                }.png`}
+                height="130px"
                 object="contain"
                 layout="fill"
               />
@@ -112,6 +116,6 @@ export default function Post({ content, metadata, toc }) {
           <Component components={MDXComponents} />
         </div>
       </div>
-    </>
+    </div>
   );
 }

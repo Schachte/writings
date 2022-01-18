@@ -49,7 +49,6 @@ export default function HomePage({ postFrontMatter }) {
         <div className="content-wrapper">
           <Navigation />
           <Hero postMetadata={postFrontMatter} />
-          {/* <AllPosts postMetadata={postFrontMatter} /> */}
           <Footer>
             Site Built &amp; Maintained By: Ryan Schachte // Logo Design By:
             Alyssa Sopanarat

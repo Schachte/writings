@@ -1,8 +1,10 @@
 import styles from "../styles/Nav.module.scss";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContextConsumer } from "@/context/ThemeContext";
 
 export default function Navigation({ showLogo = false }) {
+  const ctx = useContext(ThemeContextConsumer)
   const determineUserPreference = () => {
     if (localStorage.schachteTheme) {
       if (localStorage.schachteTheme == "dark") {
@@ -45,6 +47,7 @@ export default function Navigation({ showLogo = false }) {
     localStorage.setItem("schachteTheme", userPref);
     let app = document.getElementsByTagName("BODY")[0];
     app.setAttribute("data-theme", userPref);
+    ctx.toggleDarkMode()
   };
 
   return (
