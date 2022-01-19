@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
-import { AuthProvider } from '@/context/AuthContext'
+import '../components/fontAwesome.js'
+
 import '../styles/globals.scss'
 import '../styles/theme.scss'
-
 import '../styles/prism.scss'
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css'
 import { ThemeContextProvider } from "../context/ThemeContext";
-import './fontAwesome.js'
 
 function MyApp({ Component, pageProps }) {
 
