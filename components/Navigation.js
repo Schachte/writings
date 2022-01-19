@@ -56,54 +56,55 @@ export default function Navigation({ showLogo = false }) {
       <div className={styles["mini_nav"]}>
         <ul className={styles["nav__list"]}>
           {renderLogo(showLogo)}
-          <li className={styles["nav__listitem"]}>
-            <Link href="/">
+          <Link href="/">
+            <li className={styles["nav__listitem"]}>
               <a>Home</a>
-            </Link>
-          </li>
-          <li className={styles["nav__listitem"]}>
-            <Link href="/blog">
+            </li>
+          </Link>
+          <Link href="/blog">
+            <li className={styles["nav__listitem"]}>
               <a>Blog</a>
-            </Link>
-          </li>
-
-          <li className={styles["nav__listitem"]}>
-            <Link href="/social">Social</Link>
-            <ul className={styles["nav__listitemdrop"]}>
-              <li>
-                <span className={styles["fa"]}>
-                  <FontAwesomeIcon icon={["fab", "github"]} />
-                </span>
+            </li>
+          </Link>
+          <Link href="/social">
+            <li className={styles["nav__listitem"]}>
+              Social
+              <ul className={styles["nav__listitemdrop"]}>
                 <Link href="https://github.com/schachte">
-                  <a target="_blank">Github</a>
+                  <li>
+                    <span className={styles["fa"]}>
+                      <FontAwesomeIcon icon={["fab", "github"]} />
+                    </span>
+                    <a target="_blank">Github</a>
+                  </li>
                 </Link>
-              </li>
-              <li>
-                <span className={styles["fa"]}>
-                  <FontAwesomeIcon icon={["fab", "twitter"]} />
-                </span>
                 <Link href="https://twitter.com/thesimpengineer">
-                  <a target="_blank">Twitter</a>
+                  <li>
+                    <span className={styles["fa"]}>
+                      <FontAwesomeIcon icon={["fab", "twitter"]} />
+                    </span>
+                    <a target="_blank">Twitter</a>
+                  </li>
                 </Link>
-              </li>
-              <li>
-                <span className={styles["fa"]}>
-                  <FontAwesomeIcon icon={["fab", "youtube"]} />
-                </span>
                 <Link href="https://youtube.com/thesimpleengineer">
-                  <a target="_blank">Youtube</a>
+                  <li>
+                    <span className={styles["fa"]}>
+                      <FontAwesomeIcon icon={["fab", "youtube"]} />
+                    </span>
+                    <a target="_blank">Youtube</a>
+                  </li>
                 </Link>
-              </li>
-              <li>
-                <span className={styles["fa"]}>
-                  <FontAwesomeIcon icon={["fab", "linkedin"]} />
-                </span>
                 <Link href="https://linkedin.com/in/schachte">
-                  <a target="_blank">LinkedIn</a>
+                  <li>
+                    <span className={styles["fa"]}>
+                      <FontAwesomeIcon icon={["fab", "linkedin"]} />
+                    </span>
+                    <a target="_blank">LinkedIn</a>
+                  </li>
                 </Link>
-              </li>
-            </ul>
-          </li>
+              </ul>
+            </li>
+          </Link>
           <li className={styles["nav__listitem"]}>
             <Link href="/files/resume.pdf">
               <a target="_blank">Resume</a>
