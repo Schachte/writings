@@ -47,7 +47,7 @@ export default function HomePage({ postFrontMatter }) {
       </Head>
       <div className="wrapper">
         <div className="content-wrapper">
-          <Navigation />
+          <Navigation showLogo={true} />
           <Hero postMetadata={postFrontMatter} hideHero={true} />
           <Footer>
             Site Built &amp; Maintained By: Ryan Schachte // Logo Design By:

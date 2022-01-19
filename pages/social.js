@@ -23,7 +23,7 @@ export default function HomePage({ postFrontMatter }) {
       </Head>
       <div className="wrapper">
         <div className="content-wrapper">
-          <Navigation />
+          <Navigation showLogo={true} />
           <div
             style={{
               display: "flex",

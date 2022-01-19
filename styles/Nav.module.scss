@@ -110,7 +110,6 @@
       }
 
       &_txt {
-        // font-family: "Permanent Marker";
         font-size: 2rem;
         position: absolute;
         left: 7rem;
@@ -146,6 +145,7 @@
     }
 
     &item {
+      font-size: 13px;
       list-style: none;
       font-weight: bold;
       position: relative;
@@ -199,6 +199,7 @@
           padding: 0.5rem .5rem;
           border-radius: $radius;
           transition: background-color 200ms ease-in-out;
+          display: flex;
 
           &:hover,
           &:focus {
@@ -222,7 +223,7 @@
 
     &__list {
       &item:last-child {
-        margin-right: 0rem;
+        margin-right: 1.5rem;
       }
     }
   }
@@ -258,7 +259,7 @@
 
 @media only screen and (max-width: 850px) {
   .fa {
-    padding-right: 0rem;
+    padding-right: 1rem;
   }
   .toggle_theme {
     right: 0;
@@ -279,7 +280,7 @@
 
 @media only screen and (max-width: 450px) {
   .fa {
-    padding-right: 0rem;
+    padding-right: 1rem;
   }
   .nav {
     &__list {
