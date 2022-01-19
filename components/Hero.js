@@ -4,7 +4,7 @@ import AllPosts from "@/components/AllPosts";
 
 import { useState, useEffect } from "react";
 
-export default function Hero({ postMetadata }) {
+export default function Hero({ postMetadata, hideHero = false }) {
   const [email, setEmail] = useState();
   const [subscribeStatus, setSubscribeStatus] = useState("Subscribe");
   const [disabled, setDisabled] = useState(false);
@@ -52,6 +52,7 @@ export default function Hero({ postMetadata }) {
 
   return (
     <div className={styles["hero"]}>
+      {!hideHero && 
       <div className={styles["hero__container"]}>
         <div className={styles["hero__welcome-text"]}>
           <div className={styles["hero__image"]}>
@@ -135,7 +136,8 @@ export default function Hero({ postMetadata }) {
             </div>
           </div>
         </div>
-      </div>
+      </div>}
+      {hideHero && <span className={styles["post__header"]}>Articles, Videos &amp; Ramblings</span>}
       <AllPosts postMetadata={postMetadata} />
     </div>
   );

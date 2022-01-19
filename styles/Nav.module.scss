@@ -1,3 +1,32 @@
+.fa {
+  padding-right: .5rem;
+}
+
+.social__container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.social__btn {
+  text-align: center;
+  color: var(--main-text-color);
+  border: 3px solid var(--border-color);
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  min-width: 14rem;
+  transition: border 100ms ease-in;
+
+  &:hover {
+    cursor: pointer;
+    filter: brightness(.80);
+    background-color: var(--background-color);
+    border: 3px solid var(--main-text-color);
+  }
+}
+
 .mini_nav {
   width: 100%;
   color: var(--main-text-color);
@@ -120,7 +149,7 @@
       list-style: none;
       font-weight: bold;
       position: relative;
-      padding: 1.5rem 1rem;
+      padding: 1.5rem .4rem;
       cursor: pointer;
       align-items: flex-end;
       background-color: transparent;
@@ -131,7 +160,7 @@
         height: 0.3rem;
         border-radius: $radius;
         position: absolute;
-        left: 1rem;
+        left: .5rem;
         bottom: 0.8rem;
         background-color: $main-link-orange;
         transition: width 100ms ease-in-out;
@@ -139,7 +168,7 @@
 
       &:hover::after,
       &:focus::after {
-        width: 50%;
+        width: 80%;
       }
 
       &:hover &drop,
@@ -163,12 +192,11 @@
         visibility: hidden;
         transition: opacity 200ms ease-in-out;
         border: 1px solid var(--border-color);
-        // border-left: 1px solid var(--border-color);
-        // border-right: 1px solid var(--border-color);
 
         li {
+          width: 100%;
           list-style: none;
-          padding: 0.5rem 1rem;
+          padding: 0.5rem .5rem;
           border-radius: $radius;
           transition: background-color 200ms ease-in-out;
 
@@ -229,6 +257,9 @@
 }
 
 @media only screen and (max-width: 850px) {
+  .fa {
+    padding-right: 0rem;
+  }
   .toggle_theme {
     right: 0;
     top: 0;
@@ -247,8 +278,12 @@
 }
 
 @media only screen and (max-width: 450px) {
+  .fa {
+    padding-right: 0rem;
+  }
   .nav {
     &__list {
+
       &logo {
         &_img {
           position: absolute;

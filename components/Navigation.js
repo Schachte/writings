@@ -2,9 +2,10 @@ import styles from "../styles/Nav.module.scss";
 import Link from "next/link";
 import React, { useContext } from "react";
 import { ThemeContextConsumer } from "@/context/ThemeContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Navigation({ showLogo = false }) {
-  const ctx = useContext(ThemeContextConsumer)
+  const ctx = useContext(ThemeContextConsumer);
   const determineUserPreference = () => {
     if (localStorage.schachteTheme) {
       if (localStorage.schachteTheme == "dark") {
@@ -47,7 +48,7 @@ export default function Navigation({ showLogo = false }) {
     localStorage.setItem("schachteTheme", userPref);
     let app = document.getElementsByTagName("BODY")[0];
     app.setAttribute("data-theme", userPref);
-    ctx.toggleDarkMode()
+    ctx.toggleDarkMode();
   };
 
   return (
@@ -57,29 +58,46 @@ export default function Navigation({ showLogo = false }) {
           {renderLogo(showLogo)}
           <li className={styles["nav__listitem"]}>
             <Link href="/">
+              <a>Home</a>
+            </Link>
+          </li>
+          <li className={styles["nav__listitem"]}>
+            <Link href="/blog">
               <a>Blog</a>
             </Link>
           </li>
 
           <li className={styles["nav__listitem"]}>
-            Social
+            <Link href="/social">Social</Link>
             <ul className={styles["nav__listitemdrop"]}>
               <li>
+                <span className={styles["fa"]}>
+                  <FontAwesomeIcon icon={["fab", "github"]} />
+                </span>
                 <Link href="https://github.com/schachte">
                   <a target="_blank">Github</a>
                 </Link>
               </li>
               <li>
+                <span className={styles["fa"]}>
+                  <FontAwesomeIcon icon={["fab", "twitter"]} />
+                </span>
                 <Link href="https://twitter.com/thesimpengineer">
                   <a target="_blank">Twitter</a>
                 </Link>
               </li>
               <li>
+                <span className={styles["fa"]}>
+                  <FontAwesomeIcon icon={["fab", "youtube"]} />
+                </span>
                 <Link href="https://youtube.com/thesimpleengineer">
                   <a target="_blank">Youtube</a>
                 </Link>
               </li>
               <li>
+                <span className={styles["fa"]}>
+                  <FontAwesomeIcon icon={["fab", "linkedin"]} />
+                </span>
                 <Link href="https://linkedin.com/in/schachte">
                   <a target="_blank">LinkedIn</a>
                 </Link>
